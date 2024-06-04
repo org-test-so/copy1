@@ -1,0 +1,20 @@
+name: Add Bugs to Backlog
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add_to_project:
+    runs-on: ubuntu-latest  # Or your self-hosted runner
+
+    steps:
+      - uses: actions/checkout@v3  # Checks out your code repository
+      - uses: actions/add-to-project@v2  # Adds issues to project
+        with:
+          github-token: ${{ secrets.ISSUE_ACCESS_TOKEN }}  # Personal access token
+          repository: ${{ github.repository }}
+          project_number: 6  # Replace with your project ID (optional)
+          project_name: joseajeesh's untitled project  # Leave empty if using project_number
+          column_name: Backlog  # Column where issues will be added
+          filter: is:issue is:open label:bug
